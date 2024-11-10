@@ -478,9 +478,15 @@ Status getCurrentRoleHelper(const string& portName, bool connected, PortRole* cu
     extractRole(&roleName);
 
     if (roleName == "source") {
+      if (currentRole->getTag() == PortRole::powerRole)
         currentRole->set<PortRole::powerRole>(PortPowerRole::SOURCE);
+      else
+        currentRole->set<PortRole::mode>(PortMode::DFP);
     } else if (roleName == "sink") {
+      if (currentRole->getTag() == PortRole::powerRole)
         currentRole->set<PortRole::powerRole>(PortPowerRole::SINK);
+      else
+        currentRole->set<PortRole::mode>(PortMode::UFP);
     } else if (roleName == "host") {
         if (currentRole->getTag() == PortRole::dataRole)
             currentRole->set<PortRole::dataRole>(PortDataRole::HOST);
